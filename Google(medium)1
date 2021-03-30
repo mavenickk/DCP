@@ -1,0 +1,44 @@
+Good morning! Here's your coding interview problem for today.
+
+This problem was asked by Google.
+
+You are given a set of synonyms, such as (big, large) and (eat, consume). Using this set, determine if two sentences with the same number of words are equivalent.
+
+For example, the following two sentences are equivalent:
+
+"He wants to eat food."
+"He wants to consume food."
+Note that the synonyms (a, b) and (a, c) do not necessarily imply (b, c): consider the case of (coach, bus) and (coach, teacher).
+
+Follow-up: what if we can assume that (a, b) and (a, c) do in fact imply (b, c)?
+
+
+
+Code in python:
+
+s1 = list(input().split(" "))
+s2 = list(input().split(" "))
+n = int(input())
+syno = {}
+#print(s1)
+#print(s2)
+for i in range(n):
+    x = list(input().split(" "))
+    syno.setdefault(x[0], []).append(x[1])
+    syno.setdefault(x[1], []).append(x[0])
+#print(syno)
+flag=True
+for i in range(len(s1)):
+    if s1[i].casefold()!=s2[i].casefold():
+        flag1=False
+        for temp in syno[s1[i]]:
+            if temp.casefold() == s2[i].casefold():
+                flag1 = True
+                break
+        if flag1==False:
+            flag=False
+            break
+if flag:
+    print("equiv")
+else:
+    print("not euiv")
